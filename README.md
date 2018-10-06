@@ -1,6 +1,7 @@
-
 # Birthday Magic
 **Birthday Magic** is fun, quick, simple birthday fact application built in Java Swing. You can download this application below. The application will tell the user their exact birthday, Chinese Zodiac, Western Zodiac, Birthstone, Birth Flower and which generation they are from (within the range of 1901-2025). In addition, it will give them a countdown in days until their next Birthday. Finally, Birthday Magic will show you what your age would be if you were living on another planet or if you were an animal.
+
+![BirthdayMagic](https://4.bp.blogspot.com/-KftROI3znEc/W7kyb5nklPI/AAAAAAAAIkc/nkjBurVWKTAh_y1XQltzc1hMjeaLvkG_ACEwYBhgL/s1600/birthdaymagic.png)
 
 ## Getting Started
 Birthday Magic is not currently available as a .exe or .app file, which means you will need to run it with Java.
