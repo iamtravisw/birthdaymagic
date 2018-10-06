@@ -2,8 +2,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Date;
 
 public class Main extends JFrame {
 
@@ -13,7 +15,7 @@ public class Main extends JFrame {
     public void frame() { // Method for JFrame
 
         // Created @ CSU-Global, Programming II, Module 2.
-        final JFrame frame = new JFrame("What's your birthday?"); // Create the JFrame (Window) and name it
+        final JFrame frame = new JFrame(); // Create the JFrame (Window) and name it
         final JPanel panel = new JPanel(); // Create the Area within the Window
         frame.getContentPane().add(panel); // Add the panel as content pane
         final Integer[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}; // Options for Month
@@ -33,13 +35,17 @@ public class Main extends JFrame {
         final Birthstone birthstone = new Birthstone();
         final Flower flower = new Flower();
         final Generation generation = new Generation();
-        final JLabel extra = new JLabel("");
+        final Planets planets = new Planets();
+        final NextBirthday nextBirthday = new NextBirthday();
+        final AnimalYears animalYears = new AnimalYears();
         final JLabel chineseZodiac = new JLabel("");
         final JLabel zodiacLabel = new JLabel("");
+        final JLabel nextLabel = new JLabel("");
         final JLabel gem = new JLabel("");
         final JLabel flowerLabel = new JLabel("");
         final JLabel genLabel = new JLabel("");
-
+        final JLabel planetLabel = new JLabel("");
+        final JLabel animalLabel = new JLabel("");
 
         // End additional labels
         JButton button = new JButton("Submit"); // Create a button for the user to calculate their results
@@ -53,34 +59,91 @@ public class Main extends JFrame {
                 final LocalDate birthday = LocalDate.of(selectedYear, selectedMonth, selectedDay);
                 final LocalDate now = LocalDate.now();
                 final Period period = Period.between(birthday, now);
-                // Next line will present the results and replace the blank line 'results' from above
-                results.setText("Your birthday is " + selectedMonth + "/" + selectedDay + "/" + selectedYear + " which makes you exactly " + period.getYears() + " years, " + period.getMonths() + " months and " + period.getDays() + " days old.");
-                extra.setText("Now time for some fun facts...");
 
-                // Communicate with other objects/ modules
+                // Next line will present the results and replace the blank line 'results' from above
+                results.setText("<html><center></br>"+
+                        "Your birthday is " + selectedMonth + "/" + selectedDay + "/" + selectedYear + " which makes you exactly " + period.getYears() + " years, " + period.getMonths() + " months and " + period.getDays() + " days old.<br/>");
                 String[] args = {}; // create args
+
                 // Chinese Zodiac
                 chinese.setSelectedYear(selectedYear); // Send selectedYear to ChineseZodiac
                 chinese.main(args); // pass args to chineseZodiac
-                chineseZodiac.setText("Your Chinese Zodiac is: " +chinese.getChineseZodiac()+ "."); // Update GUI
+                chineseZodiac.setText("<html><center><br/>" +
+                        "--------------------------------------------------"+
+                        "<br/>Eastern Zodiac<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/> The " +chinese.getChineseZodiac()+ "</br>"); // Update GUI
+
+                // Generation
+                generation.setSelectedYear(selectedYear); // Send selectedMonth to Generation
+                generation.main(args); // pass args to Generation
+                genLabel.setText("<html><br/><center>" +
+                        "--------------------------------------------------"+
+                        "<br/>Which generation are you from?<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/>" +generation.getGeneration()+ "<br/>"); // Update GUI
+
                 // Zodiac (Western)
                 zodiac.setSelectedMonth(selectedMonth); // Send selectedMonth to Zodiac
                 zodiac.setSelectedDay(selectedDay); // Send selectedMonth to Zodiac
                 zodiac.main(args); // pass args to Zodiac
-                zodiacLabel.setText("Your Western Zodiac is: " +zodiac.getZodiac()+ "."); // Update GUI
+                zodiacLabel.setText("<html><br/><center>" +
+                        "--------------------------------------------------"+
+                        "<br/>Western Zodiac<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/>" +zodiac.getZodiac()+"<br/>"); // Update GUI
+
                 // Birthstone/ Gemstone
                 birthstone.setSelectedMonth(selectedMonth); // Send selectedMonth to Birthstone
                 birthstone.main(args); // pass args to Birthstone
-                gem.setText("Your Birthstone is: " +birthstone.getGemStone()+ "."); // Update GUI
+                gem.setText("<html><br/><center>" +
+                        "--------------------------------------------------"+
+                        "<br/>Birthstone<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/>" +birthstone.getGemStone()+ "<br/>");
+
                 // Flower
                 flower.setSelectedMonth(selectedMonth); // Send selectedMonth to Flower
                 flower.main(args); // pass args to Flower
-                flowerLabel.setText("Your Flower is: " +flower.getFlower()+ "."); // Update GUI
-                // Flower
-                generation.setSelectedYear(selectedYear); // Send selectedMonth to Flower
-                generation.main(args); // pass args to Flower
-                genLabel.setText("Your Generation is the: " +generation.getGeneration()+ "."); // Update GUI
+                flowerLabel.setText("<html><br/><center>" +
+                        "--------------------------------------------------"+
+                        "<br/>Birthday Flower<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/>" +flower.getFlower()+ "<br/>"); // Update GUI
 
+                // Next Birthday
+                nextBirthday.setSelectedMonth(selectedMonth); // Send selectedMonth to Zodiac
+                nextBirthday.setSelectedDay(selectedDay); // Send selectedMonth to Zodiac
+                nextBirthday.main(args); // pass args to Zodiac
+                nextLabel.setText("<html><br/><center>" +
+                        "--------------------------------------------------"+
+                        "<br/>Birthday Countdown<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/>" +nextBirthday.getUserNextBirthday()+" days<br/>"); // Update GUI
+
+                // Planets
+                planets.setSelectedYear(period.getYears()); // Send selectedYear to Planets
+                planets.main(args); // pass args to Planets
+                planetLabel.setText("<html><center><br/>" +
+                        "--------------------------------------------------"+
+                        "<br/>What's your age on other planets?<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/>Mercury: " +df2.format(planets.getMercuryYears())+ " years old. <br/>Venus: " +df2.format(planets.getVernusYears())+ " years old. <br/>"+
+                        "Mars: " +df2.format(planets.getMarsYears())+ " years old. <br/>Jupiter: " +df2.format(planets.getJupiterYears())+ " years old. <br/>"+
+                        "Saturn: " +df2.format(planets.getSaturnYears())+ " years old. <br/>Uranus: " +df2.format(planets.getUranusYears())+ " years old. <br/>"+
+                        "Neptune: " +df2.format(planets.getNeptuneYears())+ " years old. <br/>Pluto: " +df2.format(planets.getPlutoYears())+ " years old.");
+
+                // Animal Years
+                animalYears.setSelectedYear(period.getYears()); // Send selectedYear to Planets
+                animalYears.main(args); // pass args to Planets
+                animalLabel.setText("<html><center><br/>" +
+                        "--------------------------------------------------"+
+                        "<br/>Age if you were an animal?<br/>"+
+                        "--------------------------------------------------"+
+                        "<br/>Bear: " +df2.format(animalYears.getBearYears())+ " years old. <br/>Cat: " +df2.format(animalYears.getCatYears())+ " years old. <br/>"+
+                        "Dog: " +df2.format(animalYears.getDogYears())+ " years old. <br/>Duck: " +df2.format(animalYears.getDuckYears())+ " years old. <br/>"+
+                        "Elephant: " +df2.format(animalYears.getElephantYears())+ " years old. <br/>Lion: " +df2.format(animalYears.getLionYears())+ " years old. <br/>"+
+                        "Mouse: " +df2.format(animalYears.getMouseYears())+ " years old. <br/>Snake: " +df2.format(animalYears.getSnakeYears())+ " years old.");
             }
         });
         // Add the fields in the order I want them displayed
@@ -92,12 +155,15 @@ public class Main extends JFrame {
         panel.add(year); // Textbox for Year
         panel.add(button); // Add the button to the panel
         panel.add(results); // Submit button
-        panel.add(extra);
         panel.add(chineseZodiac);
         panel.add(zodiacLabel);
+        panel.add(genLabel);
         panel.add(gem);
         panel.add(flowerLabel);
-        panel.add(genLabel);
+        panel.add(nextLabel);
+        panel.add(planetLabel);
+        panel.add(animalLabel);
+
 
         // This area wasn't required, but I found a cool tutorial on YouTube and wanted to try it out
         JMenuBar menu = new JMenuBar(); // Create object for MenuBar
@@ -148,6 +214,7 @@ public class Main extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // behavior on close
         frame.setVisible(true); // Make set visible as the last thing to do
     }
+    private static DecimalFormat df2 = new DecimalFormat(".##");
     public static void main(String[] args) {
 
         new Main(); // Call Birthday so the GUI will open
