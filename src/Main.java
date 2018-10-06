@@ -30,9 +30,16 @@ public class Main extends JFrame {
         // Created after the fact for additional portfolio work
         final ChineseZodiac chinese = new ChineseZodiac();
         final Zodiac zodiac = new Zodiac();
+        final Birthstone birthstone = new Birthstone();
+        final Flower flower = new Flower();
+        final Generation generation = new Generation();
         final JLabel extra = new JLabel("");
         final JLabel chineseZodiac = new JLabel("");
         final JLabel zodiacLabel = new JLabel("");
+        final JLabel gem = new JLabel("");
+        final JLabel flowerLabel = new JLabel("");
+        final JLabel genLabel = new JLabel("");
+
 
         // End additional labels
         JButton button = new JButton("Submit"); // Create a button for the user to calculate their results
@@ -52,17 +59,27 @@ public class Main extends JFrame {
 
                 // Communicate with other objects/ modules
                 String[] args = {}; // create args
-
                 // Chinese Zodiac
                 chinese.setSelectedYear(selectedYear); // Send selectedYear to ChineseZodiac
                 chinese.main(args); // pass args to chineseZodiac
                 chineseZodiac.setText("Your Chinese Zodiac is: " +chinese.getChineseZodiac()+ "."); // Update GUI
-
                 // Zodiac (Western)
                 zodiac.setSelectedMonth(selectedMonth); // Send selectedMonth to Zodiac
                 zodiac.setSelectedDay(selectedDay); // Send selectedMonth to Zodiac
                 zodiac.main(args); // pass args to Zodiac
                 zodiacLabel.setText("Your Western Zodiac is: " +zodiac.getZodiac()+ "."); // Update GUI
+                // Birthstone/ Gemstone
+                birthstone.setSelectedMonth(selectedMonth); // Send selectedMonth to Birthstone
+                birthstone.main(args); // pass args to Birthstone
+                gem.setText("Your Birthstone is: " +birthstone.getGemStone()+ "."); // Update GUI
+                // Flower
+                flower.setSelectedMonth(selectedMonth); // Send selectedMonth to Flower
+                flower.main(args); // pass args to Flower
+                flowerLabel.setText("Your Flower is: " +flower.getFlower()+ "."); // Update GUI
+                // Flower
+                generation.setSelectedYear(selectedYear); // Send selectedMonth to Flower
+                generation.main(args); // pass args to Flower
+                genLabel.setText("Your Generation is the: " +generation.getGeneration()+ "."); // Update GUI
 
             }
         });
@@ -78,6 +95,9 @@ public class Main extends JFrame {
         panel.add(extra);
         panel.add(chineseZodiac);
         panel.add(zodiacLabel);
+        panel.add(gem);
+        panel.add(flowerLabel);
+        panel.add(genLabel);
 
         // This area wasn't required, but I found a cool tutorial on YouTube and wanted to try it out
         JMenuBar menu = new JMenuBar(); // Create object for MenuBar
@@ -111,7 +131,11 @@ public class Main extends JFrame {
         creator.addActionListener(new ActionListener() {
             @Override
             final public void actionPerformed(ActionEvent actionEvent) {
-                JOptionPane.showMessageDialog(panel, "Created by Travis Woodward\nColorado State University - Global Campus.\nProgramming II (CSC372)\nApplication created on 8/23/2018");
+                JOptionPane.showMessageDialog(panel, "Birthday Magic\nApp Version: 1.0" +
+                        "\n\n--------------------------------------------------\n\n" +
+                        "Created by: Travis Woodward\nNeed something? www.iamtravisw.com" +
+                        "\n\n--------------------------------------------------\n\n" +
+                        "Have a wonderful day!\n\n");
             }
         });
 
