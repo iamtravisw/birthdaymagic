@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="birthdaymagic:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/birthdaymagic_jar</output-path>
+    <root id="archive" name="birthdaymagic.jar">
+      <element id="module-output" name="birthdaymagic" />
+    </root>
+  </artifact>
+</component>

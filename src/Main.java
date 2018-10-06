@@ -199,9 +199,9 @@ public class Main extends JFrame {
             final public void actionPerformed(ActionEvent actionEvent) {
                 JOptionPane.showMessageDialog(panel, "Birthday Magic\nApp Version: 1.0" +
                         "\n\n--------------------------------------------------\n\n" +
-                        "Created by: Travis Woodward\nNeed something? www.iamtravisw.com" +
+                        "Created by: Travis Woodward\nNeed help? www.iamtravisw.com" +
                         "\n\n--------------------------------------------------\n\n" +
-                        "Have a wonderful day!\n\n");
+                        "Icon made by Freepik from www.flaticon.com \n\n");
             }
         });
 
